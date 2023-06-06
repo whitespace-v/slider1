@@ -1,0 +1,190 @@
+@import "./variables";
+.Slider{
+  width: 1200px;
+  position: relative;
+  &__title{
+    //need to wrap into '-text' bc changing height after entry
+    font-size: 28px;
+    height: 3em;
+    &-text{
+      font-weight: bold;
+    }
+    &-subtext{
+      font-size: 18px;
+      margin-top: 6px;
+    }
+  }
+  &__item{
+    height: 300px;
+    border-radius: 12px;
+    //cursor: grab;
+    width: 400px;
+    &-content{
+      display: flex;
+      height: 100%;
+      border-radius: 12px;
+      background-color: rgba(255, 255, 255, 0);
+      &.entering{
+        animation: contentAppearing 200ms ease-in forwards;
+      }
+      &.entered{
+        animation: contentAppearing 200ms ease-in-out forwards;
+        background-color: #fff;
+
+      }
+      &.exiting{
+        animation: contentAppearing 200ms ease-in-out alternate-reverse;
+      }
+      &-left{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        padding: 10px 20px;
+        background-color: $dark-blue;
+        background-position: 50% 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 70%;
+        border-radius: 12px;
+        font-size: 18px;
+        &-title, &-price{
+          color: white;
+          white-space: nowrap;
+        }
+        &.entering{
+          animation: leftAppearing 200ms ease-in-out forwards;
+        }
+        &.exiting{
+          animation: leftExiting 200ms ease-in-out forwards;
+        }
+        &-button{
+          cursor: pointer;
+          white-space: nowrap;
+          margin-top: auto;
+          font-size: 12px;
+          border-radius: 30px;
+          padding: 10px 15px;
+          background-color: #fff;
+          color: $dark-blue;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 5px;
+          -webkit-transition: all .5s;
+          -moz-transition: all .5s;
+          -o-transition: all .5s;
+          transition: all .5s;
+          text-shadow: inherit;
+          scale: 1;
+        }
+        &-button:hover{
+          // browser supported fw-b / unavailable bc fw must be devided by 100
+          scale: 1.1;
+          text-shadow:
+                  -.1px -.1px 0 #004889FF,
+                  .1px -.1px 0 #004889FF,
+                  -.1px .1px 0 #004889FF,
+                  .1px .1px 0 #004889FF;
+
+        }
+        &-button-more{
+          position: absolute;
+          bottom: 15px;
+          right: -55px;
+          color: $dark-blue;
+          cursor: pointer;
+          transition: all 200ms linear;
+        }
+        &-button-more:hover{
+          scale: 1.1;
+        }
+      }
+      &-car{
+        pointer-events: none;
+        background-position: 50% 60%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        scale: 0.6;
+        &.entered{
+         scale: 1.1;
+        }
+        &.exiting{
+          animation: carAppearing 500ms ease-in-out alternate-reverse;
+        }
+        &.entering{
+          animation: carAppearing 500ms ease-in-out forwards;
+        }
+      }
+    }
+  }
+  &__control{
+    z-index: 9;
+    margin-top: -20px;
+    position: absolute;
+    left: 70%;
+    transform: translate(-50%, 0);
+    display: flex;
+    gap: 20px;
+    &-prev,&-next{
+      font-size: 22px;
+      background-color: $dark-blue;
+      display: flex;
+      color: white;
+      line-height: 1em;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 200ms linear;
+      border: 2px solid transparent;
+    }
+    &-prev:hover, &-next:hover{
+      border: 2px solid $dark-blue;
+      background-color: #fff;
+      color: $dark-blue;
+    }
+  }
+}
+
+@keyframes contentAppearing {
+  0%{
+    background-color: rgba(255, 255, 255, 0);
+    width: 200px;
+  }
+  100%{
+    width: 400px;
+    background-color: #fff;
+  }
+}
+
+@keyframes leftAppearing {
+  0%{
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+  100%{
+    scale: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes leftExiting {
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+@keyframes carAppearing {
+  0%{
+    scale: 0.6;
+  }
+  100%{
+    scale: 1.1;
+  }
+}
